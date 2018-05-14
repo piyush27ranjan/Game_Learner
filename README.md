@@ -4,4 +4,4 @@ An ML Project to train the computer to play a game
  - [ ] Select Game to learn from
  - [ ] Extract training data
  - [ ] Train NN
- - [ ] Let it Play
+ - [ ] *Testing* - Let it Play
