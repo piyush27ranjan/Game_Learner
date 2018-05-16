@@ -4,7 +4,7 @@ import cv2
 import mss
 import numpy as np
 
-ball_color = ()
+ball_color = (152, 152, 152)
 with mss.mss() as sct:
     # Part of the screen to capture
     monitor = {'top': 40, 'left': 0, 'width': 800, 'height': 640}
