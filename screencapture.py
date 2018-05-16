@@ -4,7 +4,7 @@ import cv2
 import mss
 import numpy as np
 
-ball_color = (152, 152, 152)
+ball_color = [152, 152, 152]
 with mss.mss() as sct:
     # Part of the screen to capture
     monitor = {'top': 40, 'left': 0, 'width': 800, 'height': 640}
@@ -19,24 +19,23 @@ with mss.mss() as sct:
         gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         # Display the picture in grayscale
-        cv2.imshow(gray_image)
+        cv2.imshow('image',gray_image)
 
         ## Finding the ball
-        img = cv2.medianBlur(img,5)
-        cimg = cv2.cvtColor(img,cv2.COLOR_GRAY2BGR)
+        cimg = cv2.medianBlur(img,5)
+#        cimg = cv2.cvtColor(img,cv2.COLOR_GRAY2BGR)
 
         circles = cv2.HoughCircles(img,cv2.HOUGH_GRADIENT,1,20,param1=50,param2=30,minRadius=0,maxRadius=0)
 
         circles = np.uint16(np.around(circles))
-        for i in circles[0,:]:
-            # i = [x, y, r]
+        for (x, y, r) in circles[0,:]:
             # If ball centre of the circle matches the color of the ball
             if img[x,y] == eval(ball_color):
-                ball_x , ball_y = i[0], i[1] # TODO : check if x and y need to be swapped or not
+                ball_x , ball_y = x, y # TODO : check if x and y need to be swapped or not
                 # draw the outer circle with green color
-                cv2.circle(cimg,(i[0],i[1]),i[2],(0,255,0),2)
+                cv2.circle(cimg,(x,y),r,(0,255,0),2)
                 # draw the center of the circle with red color
-                cv2.circle(cimg,(i[0],i[1]),2,(0,0,255),3)
+                cv2.circle(cimg,(x,y),2,(0,0,255),3)
 
 
 

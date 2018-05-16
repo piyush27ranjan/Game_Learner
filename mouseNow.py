@@ -16,7 +16,7 @@ try:
         positionStr += ', ' + str(pixelColor[1]).rjust(3)
         positionStr += ', ' + str(pixelColor[2]).rjust(3) + ')'
         print(positionStr, end='')
-        print('\b' * len(positionStr), end='', flush=True)
+        print('\b' * len(positionStr), flush=True)
 except KeyboardInterrupt:
     print('\nDone.')
     time.sleep(3)
