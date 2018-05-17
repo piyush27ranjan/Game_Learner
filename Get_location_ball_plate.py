@@ -1,5 +1,4 @@
-import time
-
+import numpy as np
 import cv2
 import mss
 import numpy
@@ -18,16 +17,31 @@ with mss.mss() as sct:
         # Get background part
         img_background = numpy.array(sct.grab(background))
         background_gray = cv2.cvtColor(img_background, cv2.COLOR_BGRA2GRAY)
+        
+        #reduce image quality
+        resized_image = cv2.resize(background_gray, (100, 50))
 
         # White color for block and black for background
         ret_background,thresh_background = cv2.threshold(background_gray,40,255,0)
-        cv2.imshow('background',thresh_background)
+        ret_background,thresh_background_small = cv2.threshold(resized_image,40,255,0)
 #         Display the pictures
 #        cv2.imshow('OpenCV/Numpy normal', img_bottom_bar)
 
 #         Display the picture in grayscale
 #        cv2.imshow('OpenCV/Numpy grayscale',bottom_bar_gray)
+        
+        #Find circle
+        circles = cv2.HoughCircles(thresh_background,cv2.HOUGH_GRADIENT,1,20,
+                            param1=50,param2=30,minRadius=0,maxRadius=0)
 
+        circles = np.uint16(np.around(circles))
+        for i in circles[0,:]:
+            # draw the outer circle
+            cv2.circle(thresh_background,(i[0],i[1]),i[2],(0,255,0),2)
+            # draw the center of the circle
+            cv2.circle(thresh_background,(i[0],i[1]),2,(0,0,255),3)
+
+        cv2.imshow('detected circles',thresh_background)
         # Light Color=34 dark=109 for threshold
         ret,thresh = cv2.threshold(bottom_bar_gray,60,255,0)
         contours = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
