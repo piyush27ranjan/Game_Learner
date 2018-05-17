@@ -7,7 +7,7 @@ import numpy as np
 ball_color = [152, 152, 152]
 with mss.mss() as sct:
     # Part of the screen to capture
-    monitor = {'top': 40, 'left': 0, 'width': 800, 'height': 640}
+    monitor = {'top': 0, 'left': 0, 'width': 1920, 'height': 1080}
 
     while 'Screen capturing':
         last_time = time.time()
@@ -19,13 +19,13 @@ with mss.mss() as sct:
         gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         # Display the picture in grayscale
-        cv2.imshow('image',gray_image)
+#        cv2.imshow('image',gray_image)
 
         ## Finding the ball
         cimg = cv2.medianBlur(img,5)
 #        cimg = cv2.cvtColor(img,cv2.COLOR_GRAY2BGR)
 
-        circles = cv2.HoughCircles(img,cv2.HOUGH_GRADIENT,1,20,param1=50,param2=30,minRadius=0,maxRadius=0)
+        circles = cv2.HoughCircles(img,cv2.HOUGH_GRADIENT,1,20,param1=50,param2=30)
 
         circles = np.uint16(np.around(circles))
         for (x, y, r) in circles[0,:]:
