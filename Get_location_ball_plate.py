@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import mss
 import numpy
+dataset = []
 
 
 with mss.mss() as sct:
@@ -17,13 +18,13 @@ with mss.mss() as sct:
         # Get background part
         img_background = numpy.array(sct.grab(background))
         background_gray = cv2.cvtColor(img_background, cv2.COLOR_BGRA2GRAY)
-        
+        background_gray = cv2.medianBlur(background_gray,5)
         #reduce image quality
         resized_image = cv2.resize(background_gray, (100, 50))
 
         # White color for block and black for background
-        ret_background,thresh_background = cv2.threshold(background_gray,40,255,0)
         ret_background,thresh_background_small = cv2.threshold(resized_image,40,255,0)
+      #  cv2.imshow('resized',thresh_background_small)
 #         Display the pictures
 #        cv2.imshow('OpenCV/Numpy normal', img_bottom_bar)
 
@@ -31,18 +32,21 @@ with mss.mss() as sct:
 #        cv2.imshow('OpenCV/Numpy grayscale',bottom_bar_gray)
         
         #Find circle
-        circles = cv2.HoughCircles(thresh_background,cv2.HOUGH_GRADIENT,1,20,
-                            param1=50,param2=30,minRadius=0,maxRadius=0)
+        rows = background_gray.shape[0]
+        circles = cv2.HoughCircles(background_gray, cv2.HOUGH_GRADIENT, 1, rows / 8, param1=100, param2=30, minRadius=10, maxRadius=15)
 
-        circles = np.uint16(np.around(circles))
-        for i in circles[0,:]:
-            # draw the outer circle
-            cv2.circle(thresh_background,(i[0],i[1]),i[2],(0,255,0),2)
-            # draw the center of the circle
-            cv2.circle(thresh_background,(i[0],i[1]),2,(0,0,255),3)
 
-        cv2.imshow('detected circles',thresh_background)
-        # Light Color=34 dark=109 for threshold
+        if circles is not None:
+            circles = np.uint16(np.around(circles))
+            for i in circles[0,:]:
+                if img_background[i[1], i[0], 1] == 153:
+                    # draw the outer circle
+                    cv2.circle(img_background,(i[0],i[1]),i[2],(0,255,0),2)
+                    # draw the center of the circle
+                    cv2.circle(img_background,(i[0],i[1]),2,(0,0,255),3)
+                    img_background_copy = cv2.resize(img_background,(500,200))
+                    cv2.imshow('detected circles',img_background_copy)
+            # Light Color=34 dark=109 for threshold
         ret,thresh = cv2.threshold(bottom_bar_gray,60,255,0)
         contours = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
         cnt = contours[0]
@@ -60,3 +64,6 @@ with mss.mss() as sct:
         if cv2.waitKey(25) & 0xFF == ord('q'):
             cv2.destroyAllWindows()
             break
+
+
+
