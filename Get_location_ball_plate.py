@@ -8,8 +8,11 @@ import threading
 
 dataset = []
 
-def on_press(key):	
-	print( '\n' + str(time.time()) + str(key.char))
+def on_press(key):
+    if key is !None:
+        print( '\n' + str(time.time()) + str(key.char))
+    else:
+        print('\n' + str(time.time()) + str(key))
 
 #	except:
 #		print( str(time.time()) + ' ' +str(key) + '\n') 
