@@ -9,7 +9,7 @@ import threading
 dataset = []
 
 def on_press(key):
-    if key is !None:
+    if key is not None:
         print( '\n' + str(time.time()) + str(key.char))
     else:
         print('\n' + str(time.time()) + str(key))
