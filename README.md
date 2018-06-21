@@ -2,7 +2,7 @@
 [![HitCount](http://hits.dwyl.io/piyush27ranjan/Game_Learner.svg)](https://github.com/piyush27ranjan/Game_Learner/)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/piyush27ranjan/Game_Learner/graphs/commit-activity)
 ![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/piyush27ranjan/Game_Learner/issues)
 <br>
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/piyushchauhan/ama)
