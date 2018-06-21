@@ -14,3 +14,13 @@ An ML Project to train the computer to play a game
  - [x] Extract training data
  - [ ] Train NN
  - [ ] *Testing* - Let it Play
+
+## Extracting Data from Sample_image.png using OpenCV
+
+Sample Image
+![Sample Image](Sample_image.png)
+
+### After running 1shot_test.py we get the location of ball and plate
+
+
+
