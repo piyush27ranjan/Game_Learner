@@ -22,5 +22,6 @@ Sample Image
 
 ### After running 1shot_test.py we get the location of ball and plate
 
+![Tracked ball](Got_the_ball.png)
 
-
+![Tracked Plate](Got_the_plate.jpeg)
