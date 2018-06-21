@@ -23,5 +23,10 @@ Sample Image
 ### After running 1shot_test.py we get the location of ball and plate
 
 ![Tracked ball](Got_the_ball.png)
-
+Ball with purple boundary
 ![Tracked Plate](Got_the_plate.jpeg)
+Plate with white boudary
+
+## Contributers
+- [Piyush Ranjan](https://github.com/piyush27ranjan/) - [View Contributions](https://github.com/piyush27ranjan/Game_Learner/commits?author=piyush27ranjan)
+- [Piyush Chauhan](https://github.com/piyushchauhan/) - [View Contributions](https://github.com/piyush27ranjan/Game_Learner/commits?author=piyushchauhan)
