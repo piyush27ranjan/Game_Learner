@@ -21,10 +21,12 @@ We have the info about:
 - key logs and their time intervals during they were held down.
 
 ## Model
+### Classification
 - Input Vector
   - Time
   - Ball coordinates(```b_x,b_y```)
   - Plate coordinate(```p_x```)
+- Output Vector
   - Key which was pressed at that time (```Key.left, Key.right or None```)
 
 ## Extracting Data from Sample_image.png using OpenCV
