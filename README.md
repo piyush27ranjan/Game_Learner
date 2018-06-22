@@ -17,8 +17,8 @@ An ML Project to train the computer to play a game
 
 ## Current status
 We have the info about:
-- coordinates of the ball and plate
-- key logs and their time intervals during they were held down
+- coordinates of the ball and plate.
+- key logs and their time intervals during they were held down.
 
 ## Model
 - Input Vector
