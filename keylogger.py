@@ -19,7 +19,7 @@ def on_press(key):
     elif dataset_keylogger[-1][0] == str(key) and len(dataset_keylogger[-1]) == 3:
         dataset_keylogger.append([str(key), t])
         logging.info('%s pressed at %f'%(str(key), t))
-        
+    
     if key is not None:
         try:
             if key.char == 'q':
@@ -27,6 +27,7 @@ def on_press(key):
                 return False
         except AttributeError:
             pass
+    
             
 
 def on_release(key):

@@ -34,9 +34,14 @@ contours = cv2.findContours(
 cnt = contours[0]
 x, y, w, h = cv2.boundingRect(cnt)
 caught_you = cv2.rectangle(bottom_bar,(x,y),(x+w,y+h),(255,255,255),5)
-cv2.imshow('caught_you',caught_you)
-cv2.imshow("detected circles", nsrc)
+#cv2.imshow('caught_you',caught_you)
+#cv2.imshow("detected circles", nsrc)
 cv2.waitKey(0)
 
-
-
+import time
+a = []
+c=gray.flatten()
+t1 = time.time()
+d = list(c)
+t2 = time.time()
+print(t2-t1)

@@ -11,12 +11,6 @@ logging.basicConfig(level=logging.DEBUG,
                     format=' %(asctime)s - %(levelname)s - %(message)s')
 # logging.disable()
 
-# csv
-key_File = open('dataset_keylogger.csv', 'w')
-key_Writer = csv.writer(key_File, lineterminator="\n")
-coord_File = open('dataset_coords.csv', 'w')
-coord_Writer = csv.writer(coord_File, lineterminator ="\n")
-
 # dataset variables
 dataset_keylogger = []
 dataset_coordinates = []
@@ -55,6 +49,7 @@ def on_release(key):
 def keylogger():
     with keyboard.Listener(on_press = on_press, on_release = on_release) as listener:
     		listener.join()
+
 def imageProcessing():
     global dataset_coordinates
     image_count = 0
@@ -80,7 +75,7 @@ def imageProcessing():
             # White color for block and black for background
             ret_background, thresh_background_small = cv2.threshold(
                 resized_image, 40, 255, 0)
-            # cv2.imshow('resized',thresh_background_small)
+            cv2.imshow('resized',thresh_background_small)
             # Store thresh_background_small
 
 
@@ -102,8 +97,8 @@ def imageProcessing():
                                    (b_x, b_y), r, (0, 255, 0), 2)
                         # draw the center of the circle
                         cv2.circle(img_background, (b_x, b_y), 2, (0, 0, 255), 3)
-                        img_background_copy = cv2.resize(
-                            img_background, (500, 200))
+                        #img_background_copy = cv2.resize(
+                        #    img_background, (500, 200))
                         # cv2.imshow('detected circles', img_background_copy)
                         # Light Color=34 dark=109 for threshold
                         ret, thresh = cv2.threshold(bottom_bar_gray, 60, 255, 0)
@@ -120,17 +115,22 @@ def imageProcessing():
                         # p_y = y + h / 2
                         row = [b_x, b_y, p_x, image_time]
                         dataset_coordinates.append(row + list(thresh_background_small.flatten()))
+                        logging.info('Image count: %d'%(image_count))
+                        logging.debug('%s'%(str(row)))
                         logging.debug('New image appended')
             # Press "q" to quit
             if cv2.waitKey(25) & 0xFF == ord('q'):
                 cv2.destroyAllWindows()
                 break
-if(__name__ == '__main__'):
-    keylogger_thread = threading.Thread(target = keylogger)
-    imageprocessing_thread = threading.Thread(target = imageProcessing )
+            
+def writeData():
+    global dataset_coordinates, dataset_keylogger
     
-    keylogger_thread.start()
-    imageprocessing_thread.start()
+    # csv
+    key_File = open('dataset_keylogger.csv', 'w')
+    key_Writer = csv.writer(key_File, lineterminator="\n")
+    coord_File = open('dataset_coordinates.csv', 'w')
+    coord_Writer = csv.writer(coord_File, lineterminator ="\n")
 
     # Writing key strokes
     logging.info('Writing key strokes to csv file')
@@ -147,3 +147,19 @@ if(__name__ == '__main__'):
         logging.info('Writing new row of coordinates')
     coord_File.close()
     logging.info('Closing coordinates csv File\n')
+    
+if(__name__ == '__main__'):
+    keylogger_thread = threading.Thread(target = keylogger)
+    imageprocessing_thread = threading.Thread(target = imageProcessing)
+    dataset_thread = threading.Thread(target=writeData)
+    
+    time.sleep(10)
+    
+    keylogger_thread.start()
+    imageprocessing_thread.start()
+    
+    while True:
+        if not (keylogger_thread.is_alive() and imageprocessing_thread.is_alive()):
+            
+            dataset_thread.start()
+    
