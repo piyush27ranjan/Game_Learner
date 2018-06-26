@@ -55,7 +55,7 @@ def imageProcessing():
     image_count = 0
     with mss.mss() as sct:
         # bottom part of the screen
-        bottom_bar = {'top': 962, 'left': 23, 'width': 1860, 'height': 50}
+        bottom_bar = {'top': 962, 'left': 23, 'width': 1860, 'height': 36}
         # background part of the screen
         background = {'top': 334, 'left': 26, 'width': 1868, 'height': 620}
         while 'Screen capturing':
@@ -75,7 +75,7 @@ def imageProcessing():
             # White color for block and black for background
             ret_background, thresh_background_small = cv2.threshold(
                 resized_image, 40, 255, 0)
-            cv2.imshow('resized',thresh_background_small)
+#            cv2.imshow('resized',thresh_background_small)
             # Store thresh_background_small
 
 
@@ -97,9 +97,9 @@ def imageProcessing():
                                    (b_x, b_y), r, (0, 255, 0), 2)
                         # draw the center of the circle
                         cv2.circle(img_background, (b_x, b_y), 2, (0, 0, 255), 3)
-                        #img_background_copy = cv2.resize(
-                        #    img_background, (500, 200))
-                        # cv2.imshow('detected circles', img_background_copy)
+                        img_background_copy = cv2.resize(
+                            img_background, (500, 200))
+                        cv2.imshow('detected circles', img_background_copy)
                         # Light Color=34 dark=109 for threshold
                         ret, thresh = cv2.threshold(bottom_bar_gray, 60, 255, 0)
                         contours = cv2.findContours(
@@ -107,13 +107,15 @@ def imageProcessing():
                         cnt = contours[0]
                         x, y, w, h = cv2.boundingRect(cnt)
                         # M = cv2.moments(cnt)
-                        # caught_you = cv2.rectangle(bottom_bar_gray,(x,y),(x+w,y+h),(255,255,255),5)
+#                        caught_you = cv2.rectangle(bottom_bar_gray,(x,y),(x+w,y+h),(255,255,255),5)
                         # Display caught_you
-                        # cv2.imshow('caught_you',caught_you)
+#                        cv2.imshow('caught_you',caught_you)
                 
                         p_x = x + w / 2
                         # p_y = y + h / 2
                         row = [b_x, b_y, p_x, image_time]
+                        if len(dataset_coordinates)%100 == 0:
+                            cv2.imshow("100 cross",resized_image)
                         dataset_coordinates.append(row + list(thresh_background_small.flatten()))
                         logging.info('Image count: %d'%(image_count))
                         logging.debug('%s'%(str(row)))
