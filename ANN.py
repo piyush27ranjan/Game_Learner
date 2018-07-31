@@ -48,7 +48,7 @@ layer_info = Dense(1000,activation='relu', kernel_initializer='uniform')
 classifier.add(layer_info)
 classifier.add(layer_info)
 classifier.add(layer_info)
-classifier.add(layer_info)
+
 # Adding output layer
 layer_info = Dense(3,activation='softmax', kernel_initializer='uniform')
 classifier.add(layer_info)
