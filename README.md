@@ -9,6 +9,12 @@
 # Game_Learner
 An ML Project to train the computer to play a game
 
+## Installation
+Use this to install all dependencies.
+```
+pip install -r requirements.txt
+```
+
 ## Milestones
  - [x] Select Game to learn from --> [HIDDEN GAME ON GOOGLE! (Atari Breakout!)](https://www.google.co.in/search?q=atari+breakout&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjs4Pnsho3bAhXGQ48KHSikCa4Q_AUICigB&biw=1396&bih=690&dpr=1.38). This game will be played using keyboard. 
  - [x] Extract training data
