@@ -1,0 +1,6 @@
+keras==2.2.4
+mss==3.3.2
+numpy==1.15.4
+pandas==0.23.4
+pynput==1.4
+scikit_learn==0.20.1
